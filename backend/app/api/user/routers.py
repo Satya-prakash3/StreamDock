@@ -5,10 +5,12 @@ from fastapi import (
 
 from app.api.user.schemas import (
     UserRegister,
-    UserResponse
+    UserResponse,
+    UserView
 )
 from app.api.user.services import (
-    register_user
+    register_user,
+    get_users
 )
 from app.common.utils import (
     success_response,
@@ -30,6 +32,7 @@ async def register(payload: UserRegister):
     )
     return SuccessResponse(message="Registration Successful.", data=user)
 
-@user_router.get("/allUsers")
+@user_router.get("/allUsers", response_model=SuccessResponse[list], status_code=status.HTTP_200_OK)
 async def get_all_users():
-    ...
+    user = await get_users()
+    return SuccessResponse(message="Successfully Fethed Data.", data=user)
