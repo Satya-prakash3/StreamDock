@@ -46,12 +46,27 @@ def to_ist(dt: datetime) -> datetime:
     return dt.astimezone(IST)
 
 
-class ISTTimeStampedResponse(BaseModel):
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+# class ISTTimeStampedResponse(BaseModel):
+#     created_at: Optional[datetime] = None
+#     updated_at: Optional[datetime] = None
 
-    @field_serializer("created_at", "updated_at", when_used="always")
-    def convert_to_ist(self, value: Optional[datetime], _info):
-        if value is None:
-            return None
-        return to_ist(value).strftime("%Y-%m-%d %H:%M:%S")
+#     @field_serializer("created_at", "updated_at", when_used="always")
+#     def convert_to_ist(self, value: Optional[datetime], _info):
+#         if value is None:
+#             return None
+#         return to_ist(value).strftime("%Y-%m-%d %H:%M:%S")
+def to_ist(dt: datetime) -> datetime:
+    """Convert UTC datetime to IST."""
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=pytz.UTC)
+    return dt.astimezone(pytz.timezone("Asia/Kolkata"))
+
+# 🔥 Universal IST serializer base
+class ISTTimeStampedResponse(BaseModel):
+    """Base model that converts ALL datetime fields to IST when serializing."""
+
+    @field_serializer("*", when_used="always")
+    def serialize_any_datetime(self, value: any, _info):
+        if isinstance(value, datetime):
+            return to_ist(value).strftime("%Y-%m-%d %H:%M:%S")
+        return value

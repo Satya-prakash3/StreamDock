@@ -72,3 +72,11 @@ class UserResponse(ISTTimeStampedResponse):
     email: EmailStr
     created_at: datetime
     updated_at: datetime
+
+
+class UserView(ISTTimeStampedResponse):
+    _id: str
+    username: str
+    email: EmailStr
+    created_at: datetime
+    updated_at: datetime
