@@ -6,7 +6,9 @@ Twogether is a free, open-source co-watching platform built for couples and frie
 🚀 Tech Stack
 
 Frontend: React, WebSocket, TailwindCSS
+
 Backend: FastAPI, Redis, PostgreSQL, MongoDB
+
 Architecture: Client-Side Playback Sync (MVP Model)
 
 🧩 Features
