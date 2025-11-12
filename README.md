@@ -25,8 +25,7 @@ Clone the repository
 git clone https://github.com/yourusername/twogether.git
 cd twogether
 
--- Install backend dependencies -- 
-
+# Install backend dependencies
 cd backend
 poetry install
 poetry shell
