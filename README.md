@@ -1,4 +1,4 @@
-🌍 Twogether
+# 🌍 Twogether
 
 Watch. Chat. Feel closer — from anywhere.
 Twogether is a free, open-source co-watching platform built for couples and friends living miles apart. Stream any video (YouTube, Vimeo, Twitch, Terabox, and more) in perfect sync while chatting in real time. No signup required — just create a room, share a link, and enjoy moments together.
@@ -20,16 +20,15 @@ Architecture: Client-Side Playback Sync (MVP Model)
 🌐 Paste any media URL — YouTube, Vimeo, Twitch, etc.
 
 
-🛠️ Getting Started
-# Clone the repository
+# 🛠️ Getting Started
+Clone the repository
 git clone https://github.com/yourusername/twogether.git
 cd twogether
 
-# Install backend dependencies
+-- Install backend dependencies -- 
+
 cd backend
 poetry install
-
-# Activate the virtual Environment
 poetry shell
 
 # Run the application
