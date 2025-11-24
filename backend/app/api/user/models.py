@@ -1,33 +1,17 @@
-from pydantic import EmailStr
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String, Boolean
 
 from app.common.models import (
-    BaseDocument,
-    CreationMixin,
-    UpdationMixin,
-    BaseTimeStampMixin,
+    BaseSQLModel,
+    TimeStampMixinSQL
 )
 
 
-class User(BaseDocument, BaseTimeStampMixin):
-    username: str
-    email: EmailStr
-    password: str
-    is_active: bool = True
-    is_superuser: bool = False
+class User(BaseSQLModel, TimeStampMixinSQL):
+    __tablename__ = "USER"
 
-    class Settings:
-        name = "USERS"
-        indexes = ["email", "username"]
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "username": "satya",
-                "email": "satya@example.com",
-                "password_hash": "hashedpassword123",
-                "is_active": True,
-            }
-        }
-
-    def __str__(self):
-        return f"Users Model."
+    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
+    username: Mapped[str] = mapped_column(String(100), unique=True)
+    password: Mapped[str] = mapped_column(String(255))
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    is_superuser: Mapped[bool] = mapped_column(Boolean, default=True)

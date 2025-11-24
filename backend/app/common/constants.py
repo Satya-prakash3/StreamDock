@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class PathConstants:
-
     BASE_DIR = os.path.dirname(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     )
@@ -13,8 +12,7 @@ class PathConstants:
 
 @dataclass(frozen=True)
 class Constants:
-
-    APP_NAME = "StreamDock"
+    APP_NAME = "Twogether"
     APP_HOST = "0.0.0.0"
     APP_PORT = 8000
     TIME_ZONE = "Asia/Kolkata"

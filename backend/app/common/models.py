@@ -2,7 +2,10 @@ import uuid
 from beanie import Document
 from typing import Optional
 from datetime import datetime
+from sqlalchemy.sql import func
 from pydantic import BaseModel, Field
+from sqlalchemy import DateTime, String
+from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column
 
 from app.common.utils import (
     utc_now,
@@ -79,3 +82,59 @@ class BaseDocument(Document):
 
     class Settings:
         pass
+
+
+class BaseSQLModel(DeclarativeBase):
+    id: Mapped[str] = mapped_column(
+        String(36),
+        default=str(uuid.uuid4()), 
+        primary_key=True, 
+        unique=True, 
+        nullable=False
+    )
+
+    @declared_attr.directive
+    def __tablename__(cls) -> str:
+        return cls.__name__.lower()
+
+
+class CreationMixinSQL:
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+    )
+
+    created_by: Mapped[Optional[str]] = mapped_column(
+        String(64),
+        nullable=True,
+    )
+
+
+class UpdationMixinSQL:
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
+
+    updated_by: Mapped[Optional[str]] = mapped_column(
+        String(64),
+        nullable=True,
+    )
+
+
+class TimeStampMixinSQL:
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )

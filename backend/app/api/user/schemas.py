@@ -1,8 +1,8 @@
 import re
 from datetime import datetime
 from pydantic_core import PydanticCustomError
-from pydantic import EmailStr, BaseModel, Field, field_validator, field_serializer
-from typing import Optional, Annotated
+from pydantic import EmailStr, BaseModel, Field, field_validator
+from typing import Optional
 
 from app.common.utils import ISTTimeStampedResponse
 
