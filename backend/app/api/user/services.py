@@ -3,9 +3,9 @@ from fastapi.exceptions import HTTPException
 from beanie.odm.operators.find.logical import Or
 
 from app.core.logging import get_logger
-from app.common.security import make_password, verify_password
+from app.common.security import make_password
 from app.api.user.models import User
-from app.api.user.schemas import UserRegister, UserResponse, UserView
+from app.api.user.schemas import UserRegister, UserView
 from app.common.services import BaseRepository
 
 logger = get_logger("app.api.user.services")

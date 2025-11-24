@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 
-from app.api.user.schemas import UserRegister, UserResponse, UserView
+from app.api.user.schemas import UserRegister, UserResponse
 from app.api.user.services import register_user, get_users
 from app.common.utils import SuccessResponse
 

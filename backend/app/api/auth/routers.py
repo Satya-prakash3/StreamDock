@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request, Response, Cookie, HTTPException, status
+from fastapi import APIRouter, Request, Response, Cookie, HTTPException, status
 from typing import Optional
 
 from app.api.auth.services import user_login, logout_current_session
@@ -16,7 +16,6 @@ REFRESH_COOKIE_NAME = "refresh_token"
 
 @auth_router.post("/login", status_code=status.HTTP_200_OK)
 async def login(response: Response, payload: Login, request: Request):
-
     meta_data = {
         "ip": request.client.host if request and request.client else None,
         "user_agent": request.headers.get("user-agent") if request else None,

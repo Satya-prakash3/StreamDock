@@ -7,9 +7,16 @@ from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.exceptions import HTTPException, RequestValidationError
 
 
-from app.db.beanie_init import initialize_beanie
-from app.common.constants import Constants
+from app.db.postgres import connect_to_postgres, close_postgres_connection
 from app.core.redis import connect_to_redis, close_redis_connection
+from app.db.mongo import connect_to_mongo, close_mongo_connection
+from app.db.beanie_init import initialize_beanie
+from app.core.config import env, globalSettings
+from app.common.api import common_api_router
+from app.common.constants import Constants
+from app.api.main import api_main_router
+from app.core.logging import get_logger
+from app.common.utils import ASCIIART
 from app.common.exception import (
     InvalidEnvironmentError,
     BaseException,
@@ -18,12 +25,6 @@ from app.common.exception import (
     unhandled_exception_handler,
     validation_exception_handler,
 )
-from app.core.logging import get_logger
-from app.core.config import env, globalSettings
-from app.db.mongo import connect_to_mongo, close_mongo_connection
-
-from app.common.api import common_api_router
-from app.api.main import api_main_router
 
 
 # =====================================APPLICATION_LOGIC_STARTS=====================================
@@ -33,11 +34,14 @@ logger = get_logger("app.main")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    ASCIIART(text="Twogether")
+    await connect_to_postgres()
     await connect_to_mongo()
     await initialize_beanie()
     await connect_to_redis()
     yield
 
+    await close_postgres_connection()
     await close_mongo_connection()
     await close_redis_connection()
 

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "streamdock"
+name = "Twogether"
 version = "0.1.0"
 description = "Download videos and audio from any source"
 authors = ["Satyaprakash <satyaprakashsethy905@gmail.com>"]
@@ -16,12 +16,16 @@ celery = {extras = ["redis"], version = "^5.5.3"}
 aioredis = "^2.0.1"
 motor = "^3.7.1"
 python-logstash = "^0.4.8"
-beanie = "^2.0.0"gemini
+beanie = "^2.0.0"
 pydantic = {extras = ["email"], version = "^2.12.3"}
 argon2-cffi = "^25.1.0"
 pyjwt = "^2.10.1"
 cryptography = "^46.0.3"
 jinja2 = "^3.1.6"
+asyncpg = "^0.30.0"
+sqlalchemy = "^2.0.44"
+gunicorn = "^23.0.0"
+alembic = "^1.17.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -32,6 +36,7 @@ black = "^25.9.0"
 isort = "^7.0.0"
 ruff = "^0.14.3"
 mypy = "^1.18.2"
+pyfiglet = "^1.0.4"
 
 [build-system]
 requires = ["poetry-core"]
